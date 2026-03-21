@@ -1,0 +1,113 @@
+.modelOverlay {
+    font-family: serif;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modelBox {
+    border-radius: 16px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 340px;
+}
+
+.modelTitre {
+    margin: 0;
+    color: #022225;
+    font-size: 1.2rem;
+}
+
+.modelField {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modelField label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.modelField input {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border 0.2s;
+}
+
+.modelField input:focus {
+    border-color: #13748a;
+}
+
+.modelErreur {
+    color: #ff0200;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.modelCouleurs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.couleurBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, border 0.15s;
+}
+
+.couleurBtn:hover {
+    transform: scale(1.2);
+}
+
+.couleurBtnActive {
+    border: 3px solid #022225;
+    transform: scale(1.2);
+}
+
+.modelActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modelBtn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modelBtnConfirmDossier {
+    background: #4dafac;
+    color: #000000;
+}
+
+.modelBtnConfirmDossier:hover {
+    background: #0f8f94;
+}
+
+.modelBtnCancelDossier {
+    background: #d2d2d2;
+    color: #000000;
+}
+
+.modelBtnCancelDossier:hover {
+    background: #9f9f9f;
+}

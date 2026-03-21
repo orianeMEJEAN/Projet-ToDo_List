@@ -1,0 +1,64 @@
+.dossier {
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: box-shadow 0.2s;
+}
+
+.dossier:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.dossierCouleur {
+    width: 14px;
+    height: 40px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+.dossierContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dossierTitle {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #022225;
+}
+
+.dossierDescription {
+    font-size: 0.85rem;
+    color: #383838;
+}
+
+.dossierNbTaches {
+    font-size: 0.75rem;
+    color: #383838;
+    font-style: italic;
+}
+
+.dossierActions {
+    display: flex;
+    gap: 8px;
+}
+
+.dossierBtn {
+    font-family: serif;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.dossierBtn:hover {
+    background: #f0f0f0;
+}

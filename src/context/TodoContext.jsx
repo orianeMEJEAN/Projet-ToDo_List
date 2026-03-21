@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import datas from "../data/datas.json";
+import datas from "../data/Datas.json";
 
 const TodoContext = createContext();
 
@@ -20,6 +20,20 @@ export const TodoProvider = ({ children }) => {
         setRelations(datas.relations);
     };
 
+    const ajouterDossier = (dossier) => {
+        const newId = Date.now();
+        setDossiers([...dossiers, { ...dossier, id: newId }]);
+    };
+
+    const modifierDossier = (id, dossierModifier) => {
+        setDossiers(dossiers.map((d) => (d.id === id ? { ...d, ...dossierModifier } : d)));
+    };
+
+    const supprimerDossier = (id) => {
+        setDossiers(dossiers.filter((d) => d.id !== id));
+        setRelations(relations.filter((r) => r.dossier !== id));
+    };
+
     return (
         <TodoContext.Provider
             value={{
@@ -31,6 +45,9 @@ export const TodoProvider = ({ children }) => {
                 setRelations,
                 resetComplet,
                 rechargerJSON,
+                ajouterDossier,
+                modifierDossier,
+                supprimerDossier,
             }}
         >
             {children}
