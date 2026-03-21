@@ -6,17 +6,15 @@ import "./List.css";
 const List = () => {
     const { taches, dossiers, relations } = useTodo();
 
-    // Filtre par défaut : on exclut les tâches terminées
     const tachesFiltrees = taches
         .filter((tache) => !ETAT_TERMINE.includes(tache.etat))
         .sort((a, b) => new Date(b.date_echeance) - new Date(a.date_echeance));
 
-    // Récupère les dossiers associés à une tâche
     const getDossiersDeTache = (tacheId) => {
         return relations
             .filter((rel) => rel.tache === tacheId)
             .map((rel) => dossiers.find((d) => d.id === rel.dossier))
-            .filter(Boolean); // on enlève les undefined si un dossier n'existe pas
+            .filter(Boolean);
     };
 
     return (

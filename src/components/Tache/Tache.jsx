@@ -1,12 +1,11 @@
 import { useState } from "react";
 import "./Tache.css";
-import logo from "../../logo.svg";
 
 const etat_colors = {
     "Nouveau": "#60d8f9",
     "En cours": "#f9a825",
     "En attente": "#ab47bc",
-    "Terminé": "#66bb6a",
+    "Réussi": "#66bb6a",
     "Abandonné": "#ef5350",
 };
 
@@ -41,7 +40,7 @@ const Tache = ({ tache, dossiers }) => {
     return (
         <li className={`tache ${modeComplet ? "tacheComplet" : ""}`}>
 
-            <div className="tache_header">
+            <div className="tacheHeader">
                 <div className="tacheHeaderLeft">
                     <span
                         className="tacheEtatBadge"
@@ -91,9 +90,10 @@ const Tache = ({ tache, dossiers }) => {
                             Aucune description
                         </p>
                     )}
+
                     {equipiers && equipiers.length > 0 && (
                         <div className="tacheEquipiers">
-                            <span className="tacheEquipiersLabel">👥 Équipiers :</span>
+                            <span className="tacheEquipiersLabel">Équipiers :</span>
                             {equipiers.map((eq, index) => (
                                 <span key={index} className="tacheEuipierTag">
                                     {eq.name}
@@ -103,7 +103,6 @@ const Tache = ({ tache, dossiers }) => {
                     )}
                 </div>
             )}
-
         </li>
     );
 };
