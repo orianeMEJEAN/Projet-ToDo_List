@@ -5,12 +5,12 @@ const ModelReset = ({ message, onConfirm, onCancel }) => {
         <div className="modelOverlay">
             <div className="modelBox">
                 <p className="modelMessage">{message}</p>
-                <div className="model-actions">
-                    <button className="modelBtn modelBtnConfirm" onClick={onConfirm}>
+                <div className="modelActions">
+                    <button className="modelBtn modelBtnConfirmReset" onClick={onConfirm}>
                         Oui
                     </button>
 
-                    <button className="modelBtn modelBtnCancel" onClick={onCancel}>
+                    <button className="modelBtn modelBtnCancelReset" onClick={onCancel}>
                         Non
                     </button>
                 </div>

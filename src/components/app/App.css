@@ -4,7 +4,7 @@ body {
   background: #1a1a2e;
 }
 
-.app-container {
+.appContainer {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -23,13 +23,29 @@ body {
 
 .resetBar {
   display: flex;
-  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.resetBarGauche {
+  display: flex;
+  gap: 8px;
+}
+
+.basculeBtn {
+  background: #9de5e3;
+  color: #000000;
+  border-radius: 8px;
+  padding: 2px 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .resetBtn {
   background: #9de5e3;
   color: #000000;
-  border: none;
   border-radius: 20px;
   padding: 4px 10px;
   font-size: 0.85rem;
@@ -39,6 +55,11 @@ body {
 }
 
 .resetBtn:hover {
+  background: #28c697;
+  transform: scale(1.05);
+}
+
+.basculeBtn:hover {
   background: #28c697;
   transform: scale(1.05);
 }

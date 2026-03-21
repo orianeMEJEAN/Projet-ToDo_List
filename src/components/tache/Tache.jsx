@@ -95,7 +95,7 @@ const Tache = ({ tache, dossiers }) => {
                         <div className="tacheEquipiers">
                             <span className="tacheEquipiersLabel">Équipiers :</span>
                             {equipiers.map((eq, index) => (
-                                <span key={index} className="tacheEuipierTag">
+                                <span key={index} className="tacheEquipierTag">
                                     {eq.name}
                                 </span>
                             ))}

@@ -1,12 +1,13 @@
-.list-container {
+.listContainer {
+    font-family: serif;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.list-info {
+.listInfo {
     margin: 0 0 8px 0;
-    color: #022225;
+    color: #011e1f;
     font-style: italic;
     font-size: 0.9rem;
 }

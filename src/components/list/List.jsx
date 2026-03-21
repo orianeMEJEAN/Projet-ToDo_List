@@ -1,6 +1,6 @@
 import { useTodo } from "../../context/TodoContext";
-import { ETAT_TERMINE } from "../../enums/etats";
-import Tache from "../Tache/Tache";
+import { ETAT_TERMINE } from "../../enums/Etats";
+import Tache from "../tache/Tache";
 import "./List.css";
 
 const List = () => {
@@ -18,8 +18,8 @@ const List = () => {
     };
 
     return (
-        <div className="list-container">
-            <p className="list-info">
+        <div className="listContainer">
+            <p className="listInfo">
                 {tachesFiltrees.length} tâche{tachesFiltrees.length > 1 ? "s" : ""} en cours
             </p>
             <ul className="list">
