@@ -1,0 +1,62 @@
+.modelOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modelBox {
+    background: #c3ece3;
+    border-radius: 16px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 8px 32px rgba(255, 0, 0, 0.25);
+    min-width: 300px;
+}
+
+.modelMessage {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #022225;
+    text-align: center;
+}
+
+.modelActions {
+    display: flex;
+    gap: 16px;
+}
+
+.modelBtn {
+    padding: 10px 28px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modelBtnConfirm {
+    background: #ef5350;
+    color: #000000;
+}
+
+.modelBtnConfirm:hover {
+    background: #c62828;
+}
+
+.modelBtnCancel {
+    background: #e0e0e0;
+    color: #000000;
+}
+
+.modelBtnCancel:hover {
+    background: #bdbdbd;
+}

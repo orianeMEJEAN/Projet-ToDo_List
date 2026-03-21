@@ -18,5 +18,27 @@ body {
   padding: 20px;
   background: #4facc5;
   border-radius: 20px;
-  overflow: hidden;
+  overflow-y: auto;
+}
+
+.resetBar {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.resetBtn {
+  background: #9de5e3;
+  color: #000000;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.resetBtn:hover {
+  background: #28c697;
+  transform: scale(1.05);
 }

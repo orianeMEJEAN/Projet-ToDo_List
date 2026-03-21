@@ -8,6 +8,18 @@ export const TodoProvider = ({ children }) => {
     const [dossiers, setDossiers] = useState(datas.dossiers);
     const [relations, setRelations] = useState(datas.relations);
 
+    const resetComplet = () => {
+        setTaches([]);
+        setDossiers([]);
+        setRelations([]);
+    };
+
+    const rechargerJSON = () => {
+        setTaches(datas.taches);
+        setDossiers(datas.dossiers);
+        setRelations(datas.relations);
+    };
+
     return (
         <TodoContext.Provider
             value={{
@@ -17,6 +29,8 @@ export const TodoProvider = ({ children }) => {
                 setDossiers,
                 relations,
                 setRelations,
+                resetComplet,
+                rechargerJSON,
             }}
         >
             {children}
