@@ -148,3 +148,114 @@
     border-radius: 20px;
     font-weight: 500;
 }
+
+.tacheEditInput {
+    flex: 1;
+    border: 1px solid #13748a;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    outline: none;
+    color: #022225;
+}
+
+.tacheEditDate {
+    border: 1px solid #13748a;
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 0.85rem;
+    outline: none;
+    color: #022225;
+}
+
+.tacheEditTextarea {
+    border: 1px solid #13748a;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 0.9rem;
+    font-family: inherit;
+    outline: none;
+    resize: vertical;
+    color: #333;
+}
+
+.tacheErreur {
+    color: #ef5350;
+    font-size: 0.8rem;
+}
+
+.tacheActions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.tacheAction {
+    border: none;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.tacheAction--edit {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.tacheAction--edit:hover {
+    background: #bbdefb;
+}
+
+.tacheAction--dossier {
+    background: #f5ebe5;
+    color: #9a5f1b;
+}
+
+.tacheAction--dossier:hover {
+    background: #e1bee7;
+}
+
+.tacheAction--save {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.tacheAction--save:hover {
+    background: #c8e6c9;
+}
+
+.tacheAction--cancel {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.tacheAction--cancel:hover {
+    background: #ffcdd2;
+}
+
+.tacheAjoutDossiers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tacheAjoutDossierBtn {
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    opacity: 0.9;
+}
+
+.tacheAjoutDossierBtn:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}

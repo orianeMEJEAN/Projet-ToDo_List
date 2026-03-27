@@ -61,6 +61,10 @@ export const TodoProvider = ({ children }) => {
         setRelations(relations.filter((r) => r.dossier !== id));
     };
 
+    const modifierTache = (id, tacheModifiee) => {
+        setTaches(taches.map((t) => (t.id === id ? { ...t, ...tacheModifiee } : t)));
+    };
+
     return (
         <TodoContext.Provider
             value={{
@@ -76,6 +80,7 @@ export const TodoProvider = ({ children }) => {
                 ajouterDossier,
                 modifierDossier,
                 supprimerDossier,
+                modifierTache
             }}
         >
             {children}

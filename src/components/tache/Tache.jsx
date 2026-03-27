@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useTodo } from "../../context/TodoContext";
+import { ETAT_TERMINE } from "../../enums/Etats";
 import "./Tache.css";
 
 const etat_colors = {
@@ -23,6 +25,14 @@ const dossier_colors = {
 };
 
 const Tache = ({ tache, dossiers }) => {
+    const { modifierTache, dossiers: tousLesDossiers, relations, setRelations } = useTodo();
+    const [modeEdition, setModeEdition] = useState(false);
+    const [showAjoutDossier, setShowAjoutDossier] = useState(false);
+    const [editTitle, setEditTitle] = useState(tache.title);
+    const [editDescription, setEditDescription] = useState(tache.description);
+    const [editDateEcheance, setEditDateEcheance] = useState(tache.date_echeance);
+    const [erreurEdit, setErreurEdit] = useState("");
+
     const [modeComplet, setModeComplet] = useState(false);
     const { title, description, date_echeance, etat, equipiers } = tache;
     const dossiersAffiches = modeComplet ? dossiers : dossiers.slice(0, 2);
@@ -37,6 +47,43 @@ const Tache = ({ tache, dossiers }) => {
         });
     };
 
+    const handleSauvegarder = () => {
+        if (editTitle.trim().length < 5)
+        {
+            setErreurEdit("Le titre doit faire au moins 5 caractères.");
+            return;
+        }
+        if (!editDateEcheance)
+        {
+            setErreurEdit("La date d'échéance est obligatoire.");
+            return;
+        }
+        modifierTache(tache.id, {
+            title: editTitle.trim(),
+            description: editDescription,
+            date_echeance: editDateEcheance,
+        });
+        setModeEdition(false);
+        setErreurEdit("");
+    };
+
+    const handleAnnulerEdition = () => {
+        setEditTitle(tache.title);
+        setEditDescription(tache.description);
+        setEditDateEcheance(tache.date_echeance);
+        setModeEdition(false);
+        setErreurEdit("");
+    };
+
+    const dossiersDisponibles = tousLesDossiers.filter(
+        (d) => !dossiers.find((dos) => dos.id === d.id)
+    );
+
+    const ajouterDossierATache = (dossierId) => {
+        setRelations((prev) => [...prev, { tache: tache.id, dossier: dossierId }]);
+        setShowAjoutDossier(false);
+    };
+
     return (
         <li className={`tache ${modeComplet ? "tacheComplet" : ""}`}>
 
@@ -48,15 +95,31 @@ const Tache = ({ tache, dossiers }) => {
                     >
                         {etat}
                     </span>
-                    <span className="tacheTitle">{title}</span>
+                    {modeEdition ? (
+                        <input
+                            className="tacheEditInput"
+                            value={editTitle}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                        />
+                    ) : (
+                        <span className="tacheTitle">{title}</span>
+                    )}
                 </div>
 
                 <div className="tacheHeaderRight">
-                    <span className="tacheDate">{formatDate(date_echeance)}</span>
+                    {modeEdition ? (
+                        <input
+                            className="tacheEditDate"
+                            type="date"
+                            value={editDateEcheance}
+                            onChange={(e) => setEditDateEcheance(e.target.value)}
+                        />
+                    ) : (
+                        <span className="tacheDate">{formatDate(date_echeance)}</span>
+                    )}
                     <button
                         className={`tacheToggle ${modeComplet ? "tacheToggleOpen" : ""}`}
-                        onClick={() => setModeComplet(!modeComplet)}
-                        title={modeComplet ? "Réduire" : "Voir plus"}
+                        onClick={() => { setModeComplet(!modeComplet); setModeEdition(false); }}
                     >
                         ▶
                     </button>
@@ -83,13 +146,21 @@ const Tache = ({ tache, dossiers }) => {
 
             {modeComplet && (
                 <div className="tacheDetails">
-                    {description ? (
-                        <p className="tacheDescription">{description}</p>
+                    {modeEdition ? (
+                        <textarea
+                            className="tacheEditTextarea"
+                            value={editDescription}
+                            onChange={(e) => setEditDescription(e.target.value)}
+                            placeholder="Description (optionnelle)"
+                            rows={3}
+                        />
                     ) : (
-                        <p className="tacheDescription tacheDescriptionEmpty">
-                            Aucune description
+                        <p className={`tacheDescription ${!tache.description ? "tacheDescriptionEmpty" : ""}`}>
+                            {tache.description || "Aucune description"}
                         </p>
                     )}
+
+                    {erreurEdit && <span className="tacheErreur">{erreurEdit}</span>}
 
                     {equipiers && equipiers.length > 0 && (
                         <div className="tacheEquipiers">
@@ -101,6 +172,46 @@ const Tache = ({ tache, dossiers }) => {
                             ))}
                         </div>
                     )}
+
+                    <div className="tacheActions">
+                        {modeEdition ? (
+                            <>
+                                <button className="tacheAction tacheAction--save" onClick={handleSauvegarder}>
+                                    Sauvegarder
+                                </button>
+                                <button className="tacheAction tacheAction--cancel" onClick={handleAnnulerEdition}>
+                                    Annuler
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button className="tacheAction tacheAction--edit" onClick={() => setModeEdition(true)}>
+                                    Éditer
+                                </button>
+                                {dossiersDisponibles.length > 0 && (
+                                    <button className="tacheAction tacheAction--dossier" onClick={() => setShowAjoutDossier(!showAjoutDossier)}>
+                                        Dossier
+                                    </button>
+                                )}
+                            </>
+                        )}
+                    </div>
+
+                    {showAjoutDossier && (
+                        <div className="tacheAjoutDossiers">
+                            {dossiersDisponibles.map((d) => (
+                                <button
+                                    key={d.id}
+                                    className="tacheAjoutDossierBtn"
+                                    style={{ backgroundColor: dossier_colors[d.color] || "#888" }}
+                                    onClick={() => ajouterDossierATache(d.id)}
+                                >
+                                    {d.title}
+                                </button>
+                            ))}
+                        </div>
+                    )}
+
                 </div>
             )}
         </li>
