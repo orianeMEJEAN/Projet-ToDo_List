@@ -9,15 +9,37 @@ import ListDossiers from "../list/listDossiers/ListDossiers";
 import ModelReset from "../mode/ModelReset";
 import ModelTache from "../mode/ModelTache";
 
+/**
+ * Main application component.
+ * Handles global UI state (views, modals) and connects all major features:
+ * tasks, folders, reset/backup system, and creation modals.
+ *
+ * @component
+ * @returns {JSX.Element} The entire application layout
+ */
 function App()
 {
+    /** Context providing global todo actions */
     const { resetComplet, ajouterTache, revenirBackup } = useTodo();
+
+    /** Current view: "taches" or "dossiers" **/
     const [vue, setVue] = useState("taches");
+
+    /** Modal shown on first app load **/
     const [showModelDemarrage, setShowModelDemarrage] = useState(true);
+
+    /** Modal for full reset confirmation **/
     const [showModelConfirm, setShowModelConfirm] = useState(false);
+
+    /** Modal for creating a new task **/
     const [showModelTache, setShowModelTache] = useState(false);
+
+    /** Modal for restoring backup data **/
     const [showModelBackup, setShowModelBackup] = useState(false);
 
+    /**
+     * Initial reset confirmation
+     */
     const handleDemarrageOui = () => {
         resetComplet();
         localStorage.removeItem("taches");
@@ -26,23 +48,38 @@ function App()
         setShowModelDemarrage(false);
     };
 
+    /**
+     * Cancel initial reset confirmation
+     */
     const handleDemarrageNon = () => {
         setShowModelDemarrage(false);
     };
 
+    /**
+     * Open full reset confirmation modal
+     */
     const handleBoutonReset = () => {
         setShowModelConfirm(true);
     };
 
+    /**
+     * Open backup restore confirmation modal
+     */
     const handleBoutonBackup = () => {
         setShowModelBackup(true);
-    }
+    };
 
+    /**
+     * Confirm full reset of application data
+     */
     const handleConfirmOui = () => {
         resetComplet();
         setShowModelConfirm(false);
     };
 
+    /**
+     * Cancel full reset
+     */
     const handleConfirmNon = () => {
         setShowModelConfirm(false);
     };

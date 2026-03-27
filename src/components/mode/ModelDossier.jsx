@@ -1,6 +1,10 @@
 import { useState } from "react";
 import "./ModelDossier.css";
 
+/**
+ * List of available color names.
+ * @type {string[]}
+ */
 const couleurs = [
     "orange",
     "pink",
@@ -13,6 +17,10 @@ const couleurs = [
     "grey",
     "teal"];
 
+/**
+ * Mapping between color names and their HEX values.
+ * @type {Object.<string, string>}
+ */
 const couleurs_Hex = {
     orange: "#5e3700",
     pink: "#75003f",
@@ -26,14 +34,46 @@ const couleurs_Hex = {
     teal: "#005249",
 };
 
+/**
+ * Modal component used to create or edit a folder.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.dossierInitial - Initial folder data for edit mode
+ *
+ * @param {string} props.dossierInitial.title - Initial title
+ * @param {string} props.dossierInitial.description - Initial description
+ * @param {string} props.dossierInitial.color - Initial color
+ *
+ * @param {Function} props.onConfirm - Callback triggered when the form is submitted
+ * @param {Function} props.onCancel - Callback triggered when the modal is cancelled
+ *
+ * @returns {JSX.Element} The rendered modal component
+ */
 const ModelDossier = ({ dossierInitial, onConfirm, onCancel }) => {
+
+    /** @type {[string, Function]} Title state **/
     const [title, setTitle] = useState(dossierInitial?.title || "");
+
+    /** @type {[string, Function]} Description state **/
     const [description, setDescription] = useState(dossierInitial?.description || "");
+
+    /** @type {[string, Function]} Selected color state **/
     const [color, setColor] = useState(dossierInitial?.color || "orange");
+
+    /** @type {[string, Function]} Error message state **/
     const [erreur, setErreur] = useState("");
 
+    /**
+     * Handles form submission.
+     * Validates the title and triggers the onConfirm callback if valid.
+     *
+     * @function
+     * @returns {void}
+     */
     const handleSubmit = () => {
-        if (title.trim().length < 3) {
+        if (title.trim().length < 3)
+        {
             setErreur("Le titre doit faire au moins 3 caractères.");
             return;
         }

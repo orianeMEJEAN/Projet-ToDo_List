@@ -3,6 +3,10 @@ import {Etats} from "../../enums/Etats";
 import "./ModelTache.css";
 import { useTodo } from "../../context/TodoContext";
 
+/**
+ * Mapping between folder color names and HEX values.
+ * @type {Object.<string, string>}
+ */
 const dossier_colors = {
     orange: "#5e3700",
     pink: "#75003f",
@@ -16,17 +20,52 @@ const dossier_colors = {
     teal: "#005249",
 };
 
+/**
+ * Modal component used to create a new task.
+ *
+ * @component
+ * @param {Object} props - Component props
+ *
+ * @param {Function} props.onConfirm - Callback triggered when the form is submitted
+ * @param {Function} props.onCancel - Callback triggered when the modal is cancelled
+ *
+ * @returns {JSX.Element} The rendered task creation modal
+ */
 const ModelTache = ({ onConfirm, onCancel }) => {
+
+    /** @type {[string, Function]} Task title **/
     const [title, setTitle] = useState("");
+
+    /** @type {[string, Function]} Task description **/
     const [description, setDescription] = useState("");
+
+    /** @type {[string, Function]} Due date **/
     const [dateEcheance, setDateEcheance] = useState("");
+
+    /** @type {[string, Function]} Task status **/
     const [etat, setEtat] = useState(Etats.NOUVEAU);
+
+    /** @type {[string[], Function]} Team members list **/
     const [equipiers, setEquipiers] = useState([]);
+
+    /** @type {[string, Function]} Input value for adding a team member **/
     const [equipierInput, setEquipierInput] = useState("");
+
+    /** @type {[Object, Function]} Validation errors **/
     const [erreurs, setErreurs] = useState({});
+
+    /** Context providing available folders **/
     const { dossiers } = useTodo();
+
+    /** @type {[number[], Function]} Selected folder IDs **/
     const [dossiersSelectionner, setDossiersSelectionner] = useState([]);
 
+    /**
+     * Validates the form fields.
+     *
+     * @function
+     * @returns {boolean} True if the form is valid, false otherwise
+     */
     const valider = () => {
         const newErreurs = {};
         if (title.trim().length < 5)
@@ -43,6 +82,13 @@ const ModelTache = ({ onConfirm, onCancel }) => {
         return Object.keys(newErreurs).length === 0;
     };
 
+    /**
+     * Handles form submission.
+     * Calls onConfirm if validation passes.
+     *
+     * @function
+     * @returns {void}
+     */
     const handleSubmit = () => {
         if (!valider()) return;
         onConfirm(
@@ -58,6 +104,13 @@ const ModelTache = ({ onConfirm, onCancel }) => {
         );
     };
 
+    /**
+     * Adds a new team member to the list.
+     * Prevents duplicates and empty values.
+     *
+     * @function
+     * @returns {void}
+     */
     const ajouterEquipier = () => {
         const nom = equipierInput.trim();
 
@@ -68,10 +121,24 @@ const ModelTache = ({ onConfirm, onCancel }) => {
         }
     };
 
+    /**
+     * Removes a team member from the list.
+     *
+     * @function
+     * @param {string} nom - Name of the team member to remove
+     * @returns {void}
+     */
     const supprimerEquipier = (nom) => {
         setEquipiers(equipiers.filter((e) => e !== nom));
     };
 
+    /**
+     * Toggles folder selection.
+     *
+     * @function
+     * @param {number|string} id - Folder ID
+     * @returns {void}
+     */
     const toggleDossier = (id) => {
         setDossiersSelectionner((prev) =>
             prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]

@@ -1,5 +1,18 @@
 import "./ModelReset.css";
 
+/**
+ * Modal component used to confirm a reset or critical action.
+ *
+ * @component
+ * @param {Object} props - Component props
+ *
+ * @param {string} props.message - Message displayed inside the modal
+ *
+ * @param {Function} props.onConfirm - Callback triggered when the user confirms the action
+ * @param {Function} props.onCancel - Callback triggered when the user cancels the action
+ *
+ * @returns {JSX.Element} The rendered confirmation modal
+ */
 const ModelReset = ({ message, onConfirm, onCancel }) => {
     return (
         <div className="modelOverlay">

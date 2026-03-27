@@ -3,6 +3,10 @@ import { useTodo } from "../../context/TodoContext";
 import { ETAT_TERMINE } from "../../enums/Etats";
 import "./Tache.css";
 
+/**
+ * Mapping between task status and display colors.
+ * @type {Object.<string, string>}
+ */
 const etat_colors = {
     "Nouveau": "#60d8f9",
     "En cours": "#f9a825",
@@ -11,6 +15,10 @@ const etat_colors = {
     "Abandonné": "#ef5350",
 };
 
+/**
+ * Mapping between folder color names and HEX values.
+ * @type {Object.<string, string>}
+ */
 const dossier_colors = {
     orange: "#5e3700",
     pink: "#75003f",
@@ -24,19 +32,64 @@ const dossier_colors = {
     teal: "#005249",
 };
 
+/**
+ * Component representing a single task.
+ * Supports display, editing, and folder assignment.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.tache - Task object
+ *
+ * @param {number|string} props.tache.id - Task ID
+ *
+ * @param {string} props.tache.title - Task title
+ * @param {string} props.tache.description - Task description
+ * @param {string} props.tache.date_echeance - Due date
+ * @param {string} props.tache.etat - Task status
+ *
+ * @param {Array<{name: string}>} props.tache.equipiers - Team members
+ *
+ * @param {Object[]} props.dossiers - Associated folders
+ *
+ * @returns {JSX.Element} The rendered task item
+ */
 const Tache = ({ tache, dossiers }) => {
+
+    /** Context providing task update and folder relations **/
     const { modifierTache, dossiers: tousLesDossiers, relations, setRelations } = useTodo();
+
+    /** @type {[boolean, Function]} Edit mode toggle **/
     const [modeEdition, setModeEdition] = useState(false);
+
+    /** @type {[boolean, Function]} Toggle folder assignment UI **/
     const [showAjoutDossier, setShowAjoutDossier] = useState(false);
+
+    /** @type {[string, Function]} Edited title **/
     const [editTitle, setEditTitle] = useState(tache.title);
+
+    /** @type {[string, Function]} Edited description **/
     const [editDescription, setEditDescription] = useState(tache.description);
+
+    /** @type {[string, Function]} Edited due date **/
     const [editDateEcheance, setEditDateEcheance] = useState(tache.date_echeance);
+
+    /** @type {[string, Function]} Edit error message **/
     const [erreurEdit, setErreurEdit] = useState("");
 
+    /** @type {[boolean, Function]} Toggle full display mode **/
     const [modeComplet, setModeComplet] = useState(false);
     const { title, description, date_echeance, etat, equipiers } = tache;
+
+    /** Display limited or full list of folders **/
     const dossiersAffiches = modeComplet ? dossiers : dossiers.slice(0, 2);
 
+    /**
+     * Formats a date string into a readable format
+     *
+     * @function
+     * @param {string} dateStr - Date string
+     * @returns {string} Formatted date (DD/MM/YYYY)
+     */
     const formatDate = (dateStr) => {
         const date = new Date(dateStr);
 
@@ -47,6 +100,12 @@ const Tache = ({ tache, dossiers }) => {
         });
     };
 
+    /**
+     * Saves edited task data after validation.
+     *
+     * @function
+     * @returns {void}
+     */
     const handleSauvegarder = () => {
         if (editTitle.trim().length < 5)
         {
@@ -67,6 +126,12 @@ const Tache = ({ tache, dossiers }) => {
         setErreurEdit("");
     };
 
+    /**
+     * Cancels editing and restores original values.
+     *
+     * @function
+     * @returns {void}
+     */
     const handleAnnulerEdition = () => {
         setEditTitle(tache.title);
         setEditDescription(tache.description);
@@ -75,10 +140,21 @@ const Tache = ({ tache, dossiers }) => {
         setErreurEdit("");
     };
 
+    /**
+     * List of folders not yet associated with the task.
+     * @type {Object[]}
+     */
     const dossiersDisponibles = tousLesDossiers.filter(
         (d) => !dossiers.find((dos) => dos.id === d.id)
     );
 
+    /**
+     * Adds a folder to the current task.
+     *
+     * @function
+     * @param {number|string} dossierId - Folder ID
+     * @returns {void}
+     */
     const ajouterDossierATache = (dossierId) => {
         setRelations((prev) => [...prev, { tache: tache.id, dossier: dossierId }]);
         setShowAjoutDossier(false);

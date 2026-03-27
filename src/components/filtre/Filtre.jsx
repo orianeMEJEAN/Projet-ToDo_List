@@ -3,12 +3,36 @@ import { Etats } from "../../enums/Etats";
 import { useTodo } from "../../context/TodoContext";
 import "./Filtre.css";
 
+/**
+ * Sorting options available in the filter component.
+ * @type {{label: string, valeur: string}[]}
+ */
 const Tri = [
     { label: "Nom", valeur: "nom" },
     { label: "Date création", valeur: "date_creation" },
     { label: "Date échéance", valeur: "date_echeance" },
 ];
 
+/**
+ * Filter component used to sort and filter tasks by multiple criteria.
+ *
+ * @component
+ * @param {Object} props - Component props
+ *
+ * @param {string} props.tri - Current sorting criteria
+ * @param {string[]} props.filtreEtats - Selected status filters
+ *
+ * @param {Function} props.setTri - Function to update sorting criteria
+ * @param {Function} props.setFiltreEtats - Function to update status filters
+ * @param {Function} props.setFiltreDossiers - Function to update folder filters
+ * @param {Function} props.setEnCoursActif - Function to toggle active task filter
+ *
+ * @param {Array<number|string>} props.filtreDossiers - Selected folder filters
+ *
+ * @param {boolean} props.enCoursActif - Toggle to show only active tasks
+ *
+ * @returns {JSX.Element} The rendered filter panel
+ */
 const Filtre = ({
                     tri,
                     setTri,
@@ -18,15 +42,33 @@ const Filtre = ({
                     setFiltreDossiers,
                     enCoursActif,
                     setEnCoursActif }) => {
+
+    /** Context providing available folders */
     const { dossiers } = useTodo();
+
+    /** @type {[boolean, Function]} Toggle for opening/closing filter panel */
     const [ouvert, setOuvert] = useState(false);
 
+    /**
+     * Toggles a status filter on/off.
+     *
+     * @function
+     * @param {string} etat - Status to toggle
+     * @returns {void}
+     */
     const toggleEtat = (etat) => {
         setFiltreEtats((prev) =>
             prev.includes(etat) ? prev.filter((e) => e !== etat) : [...prev, etat]
         );
     };
 
+    /**
+     * Toggles a folder filter on/off.
+     *
+     * @function
+     * @param {number|string} id - Folder ID
+     * @returns {void}
+     */
     const toggleDossier = (id) => {
         setFiltreDossiers((prev) =>
             prev.includes(id) ? prev.filter((d) => d !== id) : [...prev, id]

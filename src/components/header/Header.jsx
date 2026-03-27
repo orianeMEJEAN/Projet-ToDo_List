@@ -4,6 +4,10 @@ import { ETAT_TERMINE, Etats } from "../../enums/Etats";
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "./Header.css";
 
+/**
+ * Mapping between task status and display colors.
+ * @type {Object.<string, string>}
+ */
 const etat_colors = {
     "Nouveau": "#60d8f9",
     "En cours": "#f9a825",
@@ -12,17 +16,41 @@ const etat_colors = {
     "Abandonné": "#ef5350",
 };
 
+/**
+ * Header component displaying global task statistics
+ * and a pie chart visualization of task distribution by status.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered application header
+ */
 const Header = () => {
+
+    /** Context providing all tasks **/
     const { taches } = useTodo();
 
+    /** Total number of tasks **/
     const nbTotal = taches.length;
+
+    /** Number of unfinished tasks **/
     const nbNonTerminees = taches.filter((t) => !ETAT_TERMINE.includes(t.etat)).length;
 
+    /**
+     * Data formatted for the pie chart.
+     * Each entry represents a task status and its count.
+     *
+     * @type {{name: string, value: number}[]}
+     */
     const dataCamembert = Object.values(Etats).map((etat) => ({
         name: etat,
         value: taches.filter((t) => t.etat === etat).length,
     })).filter((d) => d.value > 0);
 
+    /**
+     * Reloads the page when the logo is clicked.
+     *
+     * @function
+     * @returns {void}
+     */
     const refreshPage = () => window.location.reload();
 
     return (

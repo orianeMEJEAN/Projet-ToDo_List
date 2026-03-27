@@ -5,14 +5,36 @@ import Tache from "../tache/Tache";
 import Filtre from "../filtre/Filtre";
 import "./List.css";
 
+/**
+ * Component that displays the list of tasks with sorting and filtering options.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered task list with filters
+ */
 const List = () => {
+
+    /** Context providing tasks, folders, and relations **/
     const { taches, dossiers, relations } = useTodo();
 
+    /** @type {[string, Function]} Sorting criteria **/
     const [tri, setTri] = useState("date_echeance");
+
+    /** @type {[string[], Function]} Selected status filters **/
     const [filtreEtats, setFiltreEtats] = useState([]);
+
+    /** @type {[number[], Function]} Selected folder filters **/
     const [filtreDossiers, setFiltreDossiers] = useState([]);
+
+    /** @type {[boolean, Function]} Toggle to show only ongoing tasks **/
     const [enCoursActif, setEnCoursActif] = useState(true);
 
+    /**
+     * Retrieves all folders associated with a given task.
+     *
+     * @function
+     * @param {number|string} tacheId - Task ID
+     * @returns {Object[]} List of associated folders
+     */
     const getDossiersDeTache = (tacheId) => {
         return relations
             .filter((rel) => rel.tache === tacheId)
@@ -20,8 +42,12 @@ const List = () => {
             .filter(Boolean);
     };
 
+    /** Copy of tasks to apply filters and sorting **/
     let tachesFiltrees = [...taches];
 
+    /**
+     * Filter: only keep tasks that are not finished
+     */
     if (enCoursActif)
     {
         tachesFiltrees = tachesFiltrees.filter(
@@ -29,6 +55,9 @@ const List = () => {
         );
     }
 
+    /**
+     * Filter: by selected statuses
+     */
     if (filtreEtats.length > 0)
     {
         tachesFiltrees = tachesFiltrees.filter((t) =>
@@ -36,6 +65,9 @@ const List = () => {
         );
     }
 
+    /**
+     * Filter: by selected folders
+     */
     if (filtreDossiers.length > 0)
     {
         tachesFiltrees = tachesFiltrees.filter((t) =>
@@ -45,6 +77,13 @@ const List = () => {
         );
     }
 
+    /**
+     * Sort tasks based on selected criteria
+     *
+     * - "nom": alphabetical order
+     * - "date_creation": newest first
+     * - default: due date (latest first)
+     */
     tachesFiltrees.sort((a, b) => {
         if (tri === "nom")
         {
