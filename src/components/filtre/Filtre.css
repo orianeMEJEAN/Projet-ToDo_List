@@ -1,0 +1,51 @@
+.filtreContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #3a9ab5;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+}
+
+.filtreSection {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filtreLabel {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #022225;
+    min-width: 100px;
+}
+
+.filtreBtns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.filtreBtn {
+    background: #ffffff55;
+    color: #022225;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.filtreBtn:hover {
+    background: #ffffffaa;
+}
+
+.filtreBtnActive {
+    background: #022225;
+    color: #60d8f9;
+    border-color: #022225;
+}
