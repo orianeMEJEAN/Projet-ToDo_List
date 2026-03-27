@@ -49,3 +49,40 @@
     color: #60d8f9;
     border-color: #022225;
 }
+
+.filtreHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filtreTitre {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #022225;
+}
+
+.filtreToggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #022225;
+    padding: 4px;
+    transition: transform 0.2s;
+    line-height: 1;
+}
+
+.filtreToggleOpen {
+    transform: rotate(90deg);
+}
+
+.filtreContenu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+    border-top: 1px solid #2a8aa5;
+    padding-top: 10px;
+}

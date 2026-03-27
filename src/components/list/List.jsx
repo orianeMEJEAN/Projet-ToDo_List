@@ -5,7 +5,7 @@ import Tache from "../tache/Tache";
 import Filtre from "../filtre/Filtre";
 import "./List.css";
 
-const List = () => {
+const List = ({ vue }) => {
     const { taches, dossiers, relations } = useTodo();
 
     const [tri, setTri] = useState("date_echeance");
@@ -60,14 +60,14 @@ const List = () => {
     });
 
     return (
-        <div className="list-container">
+        <div className="listContainer">
             <Filtre
                 tri={tri} setTri={setTri}
                 filtreEtats={filtreEtats} setFiltreEtats={setFiltreEtats}
                 filtreDossiers={filtreDossiers} setFiltreDossiers={setFiltreDossiers}
                 enCoursActif={enCoursActif} setEnCoursActif={setEnCoursActif}
             />
-            <p className="list-info">
+            <p className="listInfo">
                 {tachesFiltrees.length} tâche{tachesFiltrees.length > 1 ? "s" : ""}
             </p>
             <ul className="list">

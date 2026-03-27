@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Etats } from "../../enums/Etats";
 import { useTodo } from "../../context/TodoContext";
 import "./Filtre.css";
@@ -18,6 +19,7 @@ const Filtre = ({
                     enCoursActif,
                     setEnCoursActif }) => {
     const { dossiers } = useTodo();
+    const [ouvert, setOuvert] = useState(false);
 
     const toggleEtat = (etat) => {
         setFiltreEtats((prev) =>
@@ -34,62 +36,68 @@ const Filtre = ({
     return (
         <div className="filtreContainer">
 
-            <div className="filtreSection">
-                <span className="filtreLabel">Trier par :</span>
-                <div className="filtreBtns">
-                    {Tri.map((t) => (
-                        <button
-                            key={t.valeur}
-                            className={`filtreBtn ${tri === t.valeur ? "filtreBtnActive" : ""}`}
-                            onClick={() => setTri(t.valeur)}
-                        >
-                            {t.label}
-                        </button>
-                    ))}
-                </div>
+            <div className="filtreHeader" onClick={() => setOuvert(!ouvert)}>
+                <span className="filtreTitre">Tri & Filtres</span>
+                <button className={`filtreToggle ${ouvert ? "filtreToggleOpen" : ""}`}>
+                    ▶
+                </button>
             </div>
 
-            <div className="filtreSection">
-                <span className="filtreLabel">Afficher :</span>
-                <div className="filtreBtns">
-                    <button
-                        className={`filtreBtn ${enCoursActif ? "filtreBtnActive" : ""}`}
-                        onClick={() => setEnCoursActif(!enCoursActif)}
-                    >
-                        En cours
-                    </button>
-                </div>
-            </div>
+            {ouvert && (
+                <div className="filtreContenu">
+                    <div className="filtreSection">
+                        <span className="filtreLabel">Trier par :</span>
+                        <div className="filtreBtns">
+                            {Tri.map((t) => (
+                                <button
+                                    key={t.valeur}
+                                    className={`filtreBtn ${tri === t.valeur ? "filtreBtnActive" : ""}`}
+                                    onClick={() => setTri(t.valeur)}
+                                >
+                                    {t.label}
+                                </button>
+                            ))}
 
-            <div className="filtreSection">
-                <span className="filtreLabel">États :</span>
-                <div className="filtreBtns">
-                    {Object.values(Etats).map((etat) => (
-                        <button
-                            key={etat}
-                            className={`filtreBtn ${filtreEtats.includes(etat) ? "filtreBtnActive" : ""}`}
-                            onClick={() => toggleEtat(etat)}
-                        >
-                            {etat}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {dossiers.length > 0 && (
-                <div className="filtreSection">
-                    <span className="filtreLabel">Dossiers :</span>
-                    <div className="filtreBtns">
-                        {dossiers.map((d) => (
                             <button
-                                key={d.id}
-                                className={`filtreBtn ${filtreDossiers.includes(d.id) ? "filtreBtnActive" : ""}`}
-                                onClick={() => toggleDossier(d.id)}
+                                className={`filtreBtn ${enCoursActif ? "filtreBtnActive" : ""}`}
+                                onClick={() => setEnCoursActif(!enCoursActif)}
                             >
-                                {d.title}
+                                Tâche active
                             </button>
-                        ))}
+                        </div>
                     </div>
+
+                    <div className="filtreSection">
+                        <span className="filtreLabel">États :</span>
+                        <div className="filtreBtns">
+                            {Object.values(Etats).map((etat) => (
+                                <button
+                                    key={etat}
+                                    className={`filtreBtn ${filtreEtats.includes(etat) ? "filtreBtnActive" : ""}`}
+                                    onClick={() => toggleEtat(etat)}
+                                >
+                                    {etat}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+
+                    {dossiers.length > 0 && (
+                        <div className="filtreSection">
+                            <span className="filtreLabel">Dossiers :</span>
+                            <div className="filtreBtns">
+                                {dossiers.map((d) => (
+                                    <button
+                                        key={d.id}
+                                        className={`filtreBtn ${filtreDossiers.includes(d.id) ? "filtreBtnActive" : ""}`}
+                                        onClick={() => toggleDossier(d.id)}
+                                    >
+                                        {d.title}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
         </div>
