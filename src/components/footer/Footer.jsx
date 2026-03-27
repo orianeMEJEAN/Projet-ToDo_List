@@ -1,10 +1,10 @@
 import "./Footer.css"
 
-const Footer = () => {
+const Footer = ({ onAddTache }) => {
     return (
         <footer className="footer">
             <h2> Ajout d'une tâche </h2>
-            <button className="addBtn">+</button>
+            <button className="addBtn" onClick={onAddTache}>+</button>
         </footer>
     );
 };

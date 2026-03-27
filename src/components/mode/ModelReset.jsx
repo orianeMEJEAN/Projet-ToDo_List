@@ -4,7 +4,9 @@ const ModelReset = ({ message, onConfirm, onCancel }) => {
     return (
         <div className="modelOverlay">
             <div className="modelBox">
-                <p className="modelMessage">{message}</p>
+                <p className="modelMessage" style={{ whiteSpace: "pre-line" }}>
+                    {message}
+                </p>
                 <div className="modelActions">
                     <button className="modelBtn modelBtnConfirmReset" onClick={onConfirm}>
                         Oui

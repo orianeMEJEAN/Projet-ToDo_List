@@ -7,15 +7,22 @@ import Layout from "../layout/Layout";
 import List from "../list/List";
 import ListDossiers from "../list/listDossiers/ListDossiers";
 import ModelReset from "../mode/ModelReset";
+import ModelTache from "../mode/ModelTache";
 
-function App() {
-    const { resetComplet } = useTodo();
+function App()
+{
+    const { resetComplet, ajouterTache, revenirBackup } = useTodo();
     const [vue, setVue] = useState("taches");
     const [showModelDemarrage, setShowModelDemarrage] = useState(true);
     const [showModelConfirm, setShowModelConfirm] = useState(false);
+    const [showModelTache, setShowModelTache] = useState(false);
+    const [showModelBackup, setShowModelBackup] = useState(false);
 
     const handleDemarrageOui = () => {
         resetComplet();
+        localStorage.removeItem("taches");
+        localStorage.removeItem("dossiers");
+        localStorage.removeItem("relations");
         setShowModelDemarrage(false);
     };
 
@@ -26,6 +33,10 @@ function App() {
     const handleBoutonReset = () => {
         setShowModelConfirm(true);
     };
+
+    const handleBoutonBackup = () => {
+        setShowModelBackup(true);
+    }
 
     const handleConfirmOui = () => {
         resetComplet();
@@ -58,6 +69,10 @@ function App() {
                         </button>
                     </div>
 
+                    <button className="backupBtn" onClick={handleBoutonBackup}>
+                        Revenir au backup
+                    </button>
+
                     <button className="resetBtn" onClick={handleBoutonReset}>
                         Repartir de zéro
                     </button>
@@ -66,7 +81,7 @@ function App() {
                 {vue === "taches" ? <List /> : <ListDossiers />}
             </main>
 
-            <Footer />
+            <Footer onAddTache={() => setShowModelTache(true)} />
 
             {showModelDemarrage && (
                 <ModelReset
@@ -81,6 +96,24 @@ function App() {
                     message="Êtes-vous sûr(e) de vouloir tout effacer ?"
                     onConfirm={handleConfirmOui}
                     onCancel={handleConfirmNon}
+                />
+            )}
+
+            {showModelTache && (
+                <ModelTache
+                    onConfirm={(data, dossierIds) => {
+                        ajouterTache(data, dossierIds);
+                        setShowModelTache(false);
+                    }}
+                    onCancel={() => setShowModelTache(false)}
+                />
+            )}
+
+            {showModelBackup && (
+                <ModelReset
+                    message={"Revenir aux données du backup JSON ? \n ⚠️ Attention, vos ajouts et modifications ne seront pas conservés"}
+                    onConfirm={() => { revenirBackup(); setShowModelBackup(false); }}
+                    onCancel={() => setShowModelBackup(false)}
                 />
             )}
         </Layout>

@@ -63,3 +63,19 @@ body {
   background: #28c697;
   transform: scale(1.05);
 }
+
+.backupBtn {
+  background: #9de5e3;
+  color: #000000;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.backupBtn:hover {
+  background: #28c697;
+  transform: scale(1.05);
+}

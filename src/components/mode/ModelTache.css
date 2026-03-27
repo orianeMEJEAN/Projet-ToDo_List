@@ -1,0 +1,165 @@
+.modelOverlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modelBox {
+    border-radius: 16px;
+    padding: 32px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 340px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modelTitre {
+    margin: 0;
+    color: #022225;
+    font-size: 1.2rem;
+}
+
+.modelField {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.modelField label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #000000;
+}
+
+.modelField input, .modelField select, .modelField textarea {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.95rem;
+    font-family: serif;
+    outline: none;
+    transition: border 0.2s;
+    resize: vertical;
+}
+
+.modelField input:focus, .modelField select:focus, .modelField textarea:focus {
+    border-color: #13748a;
+}
+
+.modelErreur {
+    color: #ef5350;
+    font-size: 0.8rem;
+}
+
+.modelEquipierInput {
+    display: flex;
+    gap: 8px;
+}
+
+.modelEquipierInput input {
+    flex: 1;
+}
+
+.equipierAddBtn {
+    background: #13748a;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0 16px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.equipierAddBtn:hover {
+    background: #022225;
+}
+
+.modelEquipiersListe {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.equipierTag {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #e3f2fd;
+    color: #1565c0;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.equipierTag button {
+    background: none;
+    border: none;
+    color: #1565c0;
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0;
+    line-height: 1;
+}
+
+.equipierTag button:hover {
+    color: #ef5350;
+}
+
+.modelActions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modelBtn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 20px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.modelBtnConfirmTache {
+    background: #13748a;
+    color: #fff;
+}
+
+.modelBtnConfirmTache:hover {
+    background: #022225;
+}
+
+.modelBtnCancelTache {
+    background: #e0e0e0;
+    color: #000000;
+}
+
+.modelBtnCancelTache:hover {
+    background: #bdbdbd;
+}
+
+.modelDossiersListe {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.dossierSelectBtn {
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
