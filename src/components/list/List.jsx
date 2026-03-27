@@ -5,7 +5,7 @@ import Tache from "../tache/Tache";
 import Filtre from "../filtre/Filtre";
 import "./List.css";
 
-const List = ({ vue }) => {
+const List = () => {
     const { taches, dossiers, relations } = useTodo();
 
     const [tri, setTri] = useState("date_echeance");
