@@ -44,19 +44,50 @@
     color: #ffb861;
 }
 
-.header__stat-label {
-    font-size: 0.7rem;
+.headerStatLabel {
+    font-size: 0.8rem;
     font-weight: 600;
-    color: #ffffffaa;
+    color: rgba(0, 0, 0, 0.67);
     white-space: nowrap;
 }
 
-.header__separateur {
+.headerSeparateur {
     width: 1px;
     height: 30px;
     background: #ffffff33;
 }
 
+.headerCamembert {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.header__legende {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.headerLegendeItem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.headerLegendeCouleur {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.headerLegendeLabel {
+    font-size: 0.8rem;
+    color: rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
 
 @keyframes App-logo-spin {
     from {

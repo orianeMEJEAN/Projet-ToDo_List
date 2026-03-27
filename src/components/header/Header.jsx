@@ -1,15 +1,29 @@
 import logo from "../../logo.svg";
 import { useTodo } from "../../context/TodoContext";
-import { ETAT_TERMINE } from "../../enums/Etats";
+import { ETAT_TERMINE, Etats } from "../../enums/Etats";
+import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import "./Header.css";
+
+const etat_colors = {
+    "Nouveau": "#60d8f9",
+    "En cours": "#f9a825",
+    "En attente": "#ab47bc",
+    "Réussi": "#66bb6a",
+    "Abandonné": "#ef5350",
+};
 
 const Header = () => {
     const { taches } = useTodo();
+
     const nbTotal = taches.length;
     const nbNonTerminees = taches.filter((t) => !ETAT_TERMINE.includes(t.etat)).length;
-    const refreshPage = () => {
-        window.location.reload();
-    };
+
+    const dataCamembert = Object.values(Etats).map((etat) => ({
+        name: etat,
+        value: taches.filter((t) => t.etat === etat).length,
+    })).filter((d) => d.value > 0);
+
+    const refreshPage = () => window.location.reload();
 
     return (
         <header className="header">
@@ -26,6 +40,53 @@ const Header = () => {
                     <span className="headerStatLabel">non terminées</span>
                 </div>
             </div>
+
+            {dataCamembert.length > 0 && (
+                <div className="headerCamembert">
+                    <PieChart width={80} height={80}>
+                        <Pie
+                            data={dataCamembert}
+                            cx={35}
+                            cy={35}
+                            innerRadius={18}
+                            outerRadius={35}
+                            dataKey="value"
+                            strokeWidth={0}
+                        >
+                            {dataCamembert.map((entry) => (
+                                <Cell
+                                    key={entry.name}
+                                    fill={etat_colors[entry.name] || "#888"}
+                                />
+                            ))}
+                        </Pie>
+                        <Tooltip
+                            formatter={(value, name) => [`${value} tâche${value > 1 ? "s" : ""}`, name]}
+                            contentStyle={{
+                                background: "#022225",
+                                border: "none",
+                                borderRadius: "8px",
+                                color: "#fff",
+                                fontSize: "0.75rem",
+                            }}
+                        />
+                    </PieChart>
+
+                    <div className="headerLegende">
+                        {dataCamembert.map((entry) => (
+                            <div key={entry.name} className="headerLegendeItem">
+                    <span
+                        className="headerLegendeCouleur"
+                        style={{ backgroundColor: etat_colors[entry.name] || "#888" }}
+                    />
+                                <span className="headerLegendeLabel">
+                        {entry.name} ({entry.value})
+                    </span>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </header>
     );
 };
