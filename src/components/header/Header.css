@@ -13,6 +13,51 @@
     animation: App-logo-spin infinite 20s linear;
 }
 
+.headerTitre {
+    margin: 0;
+    flex: 1;
+}
+
+.headerStats {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-radius: 12px;
+    padding: 8px 16px;
+}
+
+.headerStat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.headerStatNombre {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: #60d8f9;
+    line-height: 1;
+}
+
+.headerStatNombreEncours {
+    color: #ffb861;
+}
+
+.header__stat-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #ffffffaa;
+    white-space: nowrap;
+}
+
+.header__separateur {
+    width: 1px;
+    height: 30px;
+    background: #ffffff33;
+}
+
+
 @keyframes App-logo-spin {
     from {
         transform: rotate(0deg);
