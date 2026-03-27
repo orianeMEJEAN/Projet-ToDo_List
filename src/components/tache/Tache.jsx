@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useTodo } from "../../context/TodoContext";
-import { ETAT_TERMINE } from "../../enums/Etats";
 import "./Tache.css";
 
 /**
@@ -56,7 +55,7 @@ const dossier_colors = {
 const Tache = ({ tache, dossiers }) => {
 
     /** Context providing task update and folder relations **/
-    const { modifierTache, dossiers: tousLesDossiers, relations, setRelations } = useTodo();
+    const { modifierTache, dossiers: tousLesDossiers, setRelations } = useTodo();
 
     /** @type {[boolean, Function]} Edit mode toggle **/
     const [modeEdition, setModeEdition] = useState(false);
@@ -78,7 +77,7 @@ const Tache = ({ tache, dossiers }) => {
 
     /** @type {[boolean, Function]} Toggle full display mode **/
     const [modeComplet, setModeComplet] = useState(false);
-    const { title, description, date_echeance, etat, equipiers } = tache;
+    const { title, date_echeance, etat, equipiers } = tache;
 
     /** Display limited or full list of folders **/
     const dossiersAffiches = modeComplet ? dossiers : dossiers.slice(0, 2);
